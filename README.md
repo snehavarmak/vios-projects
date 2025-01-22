@@ -21,8 +21,8 @@ Ensure you have the following installed:
 Clone the repository and install the dependencies:
 
 ```bash
-git clone <repository-url>
-cd <project-directory>
+git clone https://github.com/snehavarmak/vios-projects
+cd vios-projects
 forge init
 ```
 
