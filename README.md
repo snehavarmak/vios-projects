@@ -1,108 +1,130 @@
-# LandRegistry Smart Contract
+# README
 
-A simple smart contract for land registration and ownership transfer. This contract allows users to register land, transfer ownership, and query land details.
+This repository contains three smart contracts for decentralized applications: **Land Registry**, **Bank Application**, and **Health Records**. These contracts provide basic functionality for land ownership management, banking operations, and health record management on the blockchain.
 
-## Features
+---
 
-- **Land Registration:** Users can register a land with an ID, location, and area.
-- **Ownership Transfer:** Owners can transfer land ownership to another address.
-- **Land Details:** Retrieve land details by land ID, including location, area, and owner.
-- **Land Registration Check:** Check if a land is registered.
+## Table of Contents
 
-## Prerequisites
+- [Land Registry](#land-registry)
+- [Bank Application](#bank-application)
+- [Health Records](#health-records)
+- [Deployment Instructions](#deployment-instructions)
+- [Testing](#testing)
+---
 
-Ensure you have the following installed:
+## Land Registry
 
-- [Foundry](https://github.com/foundry-rs/foundry) (includes Anvil and Forge) for smart contract deployment and testing
-- Solidity v0.8.0 (or higher)
+### Overview
 
-## Project Setup
+The **Land Registry** contract allows users to register land, transfer ownership, and check the status of land ownership.
 
-Clone the repository and install the dependencies:
+### Features
 
-```bash
-git clone https://github.com/snehavarmak/vios-projects
-cd vios-projects
-forge init
-```
+- **Register Land**: Users can register land by providing an ID, location, and area.
+- **Transfer Ownership**: The current owner of the land can transfer ownership to another address.
+- **Get Land Details**: View the details of a land, including ID, location, area, owner, and registration status.
+- **Check Registration Status**: Check whether a land is registered.
 
-### Smart Contract
+### Functions
 
-The `LandRegistry` smart contract is written in Solidity and located in the `src` directory. The contract allows users to register land, transfer ownership, and query land details.
+- `registerLand(uint256 _id, string memory _location, uint256 _area)`: Register a new land.
+- `transferOwner(uint256 _id, address _newOwner)`: Transfer ownership of a registered land.
+- `getLand(uint256 _id)`: Get the details of a registered land.
+- `isLandRegistered(uint256 _id)`: Check if a land is registered.
 
-### Deployment Script
+---
 
-The contract is deployed using a deployment script in the `script` directory. To deploy the contract, you can use the provided `DeployLandRegistry.s.sol` script.
+## Bank Application
 
-### Test Script
+### Overview
 
-The test script for the contract is located in the `test` directory. It uses the Foundry testing framework to verify the contract functionality. Example tests include registering land and transferring ownership.
+The **Bank Application** contract implements a simple banking system where users can create accounts, deposit and withdraw funds, and transfer money between accounts.
 
-### Running the Anvil Blockchain
+### Features
 
-Start the Anvil local blockchain in one terminal:
+- **Create Account**: Users can create an account in the bank.
+- **Deposit**: Users can deposit funds into their account.
+- **Withdraw**: Users can withdraw funds from their account.
+- **Transfer**: Users can transfer funds to other bank accounts.
+- **Get Balance**: Users can check their account balance.
 
-```bash
-anvil
-```
+### Functions
 
-### Deploying the Contract
+- `createAccount()`: Create a new bank account.
+- `deposit()`: Deposit funds into the user's account.
+- `withdrawal(uint256 amount)`: Withdraw specified amount from the user's account.
+- `transfer(address to, uint256 amount)`: Transfer funds to another user's account.
+- `getBalance()`: Get the user's account balance.
 
-Once the Anvil blockchain is running, deploy the contract using the `forge` command:
+---
 
-```bash
-forge script script/DeployLandRegistry.s.sol --fork-url http://127.0.0.1:8545 --broadcast
-```
+## Health Records
 
-This will deploy the `LandRegistry` contract to the local Anvil blockchain.
+### Overview
 
-### Testing the Contract
+The **Health Records** contract allows users to manage medical records, where records can be added, updated, and shared with authorized users.
 
-To test the contract functions (such as registration and ownership transfer), run the following command:
+### Features
 
-```bash
-forge test
-```
+- **Add Record**: Add a new medical record.
+- **Update Record**: Update an existing medical record.
+- **Grant Access**: Grant access to a specific user for a record.
+- **Revoke Access**: Revoke access to a specific user for a record.
+- **View Record**: View the content of a medical record if authorized.
 
-This will execute the tests and verify that the contract behaves as expected.
+### Functions
 
-## Contract Functions
+- `addRecord(uint recordId, string memory data)`: Add a new record.
+- `updateRecord(uint recordId, string memory data)`: Update an existing record.
+- `getRecord(uint recordId)`: View the details of a record.
+- `grantAccess(uint recordId, address user)`: Grant access to a user for a specific record.
+- `revokeAccess(uint recordId, address user)`: Revoke access from a user for a specific record.
 
-### `registerLand(uint256 _id, string memory _location, uint256 _area)`
+---
 
-Registers a new land with the provided ID, location, and area.
+## Deployment Instructions
 
-- **Parameters:**
-  - `_id`: The ID of the land
-  - `_location`: The location of the land
-  - `_area`: The area of the land
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/snehavarmak/vios-projects
+   cd vios-projects
+   ```
 
-### `transferOwner(uint256 _id, address _newOwner)`
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-Transfers ownership of a registered land to a new owner.
+3. Compile the smart contracts:
+   ```bash
+   npx hardhat compile
+   ```
 
-- **Parameters:**
-  - `_id`: The ID of the land
-  - `_newOwner`: The address of the new owner
+4. Deploy the contracts to your chosen network (e.g., Sepolia, Rinkeby):
+   ```bash
+   npx hardhat run scripts/deploy.js --network sepolia
+   ```
 
-### `getLand(uint256 _id)`
+5. Interact with the contracts via Hardhat console or integrate them into your front-end application.
 
-Returns the details of a registered land.
+---
 
-- **Parameters:**
-  - `_id`: The ID of the land
+## Testing
 
-- **Returns:**
-  - The land’s ID, location, area, owner, and registration status
+To test the contracts, you can use the Hardhat testing framework:
 
-### `isLandRegistered(uint256 _id)`
+1. Run the tests:
+   ```bash
+   npx hardhat test
+   ```
 
-Checks if a land is registered.
+2. Ensure that the tests cover all functions and edge cases for each contract.
 
-- **Parameters:**
-  - `_id`: The ID of the land
+---
 
-- **Returns:**
-  - `true` if the land is registered, `false` otherwise
+## License
+
+This project is licensed under the MIT License.
 
 ---
